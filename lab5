@@ -1,0 +1,71 @@
+
+module lab5(reset, clock);
+    input reset,clock;
+    wire clk_500Hz,clk_1Hz;
+    
+endmodule
+
+module divider500(clock, q, reset, clkHz);
+    parameter n=21;
+    input clock,reset;
+    output [n-1:0] q; //q is the output of the counter result
+    output clkHz;//clkHz is used to forbid 
+    reg [n-1:0] q;
+    always @ (posedge clock or posedge reset)
+    begin
+        if (reset==1) q<=0;
+        else if (clkHz==1'b1) q<=0;
+        else  q<=q+1;
+    end
+    and (clkHz,q[5:0],q[8],q[10],q[11],q[17:16]);
+endmodule
+
+module divider1(clock, q, reset, clkHz);
+    parameter n=9;
+    input clock,reset;
+    output  [n-1:0] q;
+    output clkHz;
+    reg [n-1:0] q;
+    always @ (posedge clock or posedge reset)
+    begin
+        if (reset==1) q<=0;
+        else if (clkHz==1'b1) q<=0;
+        else  q<=q+1;
+    end
+    and (clkHz,q[20],q[10]);
+endmodule
+
+module timer1(clock, q, reset, clkHz);
+    parameter n=4;
+    input clock,reset;
+    output  [n-1:0] q;
+    output clkHz;
+    reg [n-1:0] q;
+    always @ (posedge clock or posedge reset)
+    begin
+        if (reset==1) q<=0;
+        else if (clkHz==1'b1) q<=0;
+        else  q<=q+1;
+    end
+    and (clkHz,q[3],q[0]);
+endmodule
+
+module timer2(clock, q, reset, clkHz);
+    parameter n=3;
+    input clock,reset;
+    output  [n-1:0] q;
+    output clkHz;
+    reg [n-1:0] q;
+    always @ (posedge clock or posedge reset)
+    begin
+        if (reset==1) q<=0;
+        else if (clkHz==1'b1) q<=0;
+        else  q<=q+1;
+    end
+    and (clkHz,q[2],q[0]);
+endmodule
+
+module ring(clock,reset,ringout);
+    input clock, reset;
+    output [3:0]ringout;
+endmodule
